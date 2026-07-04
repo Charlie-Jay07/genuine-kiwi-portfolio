@@ -1,3 +1,8 @@
+## Latest changes
+
+- Replaced the harsh Work page fade divider with a clean, non-overlay "More Projects" scroll cue.
+- Removed the project-card masking/fade so the lower cards display normally and do not look dark or broken.
+
 # GenuineKiwi Portfolio
 
 React/Vite portfolio for `Genuine_Kiwi`, split into pages, reusable components, data helpers, and an admin dashboard.
@@ -348,3 +353,24 @@ The component also includes a CSS fallback shape so the icon still appears if th
 
 - Work cards now tilt/move on hover, matching the animated card feel.
 - Services feature card now includes the Roblox Studio logo asset at `public/assets/brand/roblox-studio-logo.png`.
+
+## Latest fix
+
+- Added safe overflow and padding to the homepage gradient name so the first letter no longer gets clipped.
+
+## Latest update
+
+- Increased the hero name letter spacing slightly.
+- Fixed the `Genuine_Kiwi` underscore so it remains visible without needing text selection/highlighting.
+
+## Latest update
+
+- Hero heading sizing was reduced, the name spacing/underscore rendering was fixed, and page CTA labels now use title case.
+
+### Latest UI tweak
+
+- Added a subtle gradient scroll cue above the Work page project cards so the lower project components peek in and encourage scrolling from the first view.
+
+## Latest visual adjustment
+
+- Replaced the heavy Work page scroll gradient with a softer top fade and a small pulsing blue cue so the lower cards are hinted without a harsh divider line.

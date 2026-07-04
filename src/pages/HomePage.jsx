@@ -19,8 +19,8 @@ export function HomePage({ data }) {
             <p className="hero-text">{data.profile.headline}</p>
             <p className="body-copy">{data.profile.about}</p>
             <div className="hero-actions">
-              <a className="primary-button stable-button" href="#contact"><FaBriefcase aria-hidden="true" /> Commission enquiry</a>
-              <a className="ghost-button stable-button" href="#work"><FaImages aria-hidden="true" /> View work</a>
+              <a className="primary-button stable-button" href="#contact"><FaBriefcase aria-hidden="true" /> Commission Enquiry</a>
+              <a className="ghost-button stable-button" href="#work"><FaImages aria-hidden="true" /> View Work</a>
             </div>
           </FadeContent>
         </div>

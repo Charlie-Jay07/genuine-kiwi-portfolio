@@ -16,7 +16,11 @@ export function WorkPage({ projects }) {
         <FadeContent delay={90}>
           <Carousel items={projects} autoplayDelay={4000} />
         </FadeContent>
-        <div className="project-grid">
+        <div className="work-more-cue" aria-hidden="true">
+          <span>More Projects</span>
+          <i />
+        </div>
+        <div className="project-grid work-project-grid">
           {projects.map((project, index) => {
             const imageCount = getProjectImageCount(project);
             return (
