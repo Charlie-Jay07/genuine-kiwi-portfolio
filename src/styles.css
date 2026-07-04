@@ -11,7 +11,14 @@
   --accent-3: #ffffff;
   --danger: #bfdbfe;
   --shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
 }
 
 * {
@@ -58,9 +65,21 @@ img {
 
 .grainient-bg {
   background:
-    radial-gradient(circle at 16% 18%, rgba(56, 189, 248, 0.22), transparent 25rem),
-    radial-gradient(circle at 82% 14%, rgba(14, 165, 233, 0.18), transparent 30rem),
-    radial-gradient(circle at 50% 85%, rgba(255, 255, 255, 0.055), transparent 26rem),
+    radial-gradient(
+      circle at 16% 18%,
+      rgba(56, 189, 248, 0.22),
+      transparent 25rem
+    ),
+    radial-gradient(
+      circle at 82% 14%,
+      rgba(14, 165, 233, 0.18),
+      transparent 30rem
+    ),
+    radial-gradient(
+      circle at 50% 85%,
+      rgba(255, 255, 255, 0.055),
+      transparent 26rem
+    ),
     linear-gradient(145deg, #02050c 0%, #061122 48%, #000000 100%);
 }
 
@@ -70,8 +89,11 @@ img {
   inset: 0;
   opacity: 0.09;
   z-index: 0;
-  background-image:
-    repeating-radial-gradient(circle at 0 0, rgba(255, 255, 255, 0.95) 0 1px, transparent 1px 3px);
+  background-image: repeating-radial-gradient(
+    circle at 0 0,
+    rgba(255, 255, 255, 0.95) 0 1px,
+    transparent 1px 3px
+  );
   mix-blend-mode: overlay;
 }
 
@@ -141,7 +163,10 @@ main {
   border: 1px solid var(--line);
   color: var(--text);
   background: rgba(255, 255, 255, 0.065);
-  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
 }
 
 .brand-socials a {
@@ -259,7 +284,6 @@ main {
   background: rgba(255, 255, 255, 0.08);
 }
 
-
 .hero {
   min-height: 100vh;
   display: grid;
@@ -338,7 +362,13 @@ main {
   overflow: visible;
   white-space: nowrap;
   padding: 0 0.018em 0.12em 0;
-  background: linear-gradient(90deg, #ffffff, var(--accent), var(--accent-2), #ffffff);
+  background: linear-gradient(
+    90deg,
+    #ffffff,
+    var(--accent),
+    var(--accent-2),
+    #ffffff
+  );
   background-size: 220% auto;
   background-clip: text;
   -webkit-background-clip: text;
@@ -463,8 +493,15 @@ main {
   border-radius: 34px;
   padding: 1px;
   background:
-    linear-gradient(rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03)) padding-box,
-    linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(56, 189, 248, 0.9), rgba(14, 165, 233, 0.72)) border-box;
+    linear-gradient(rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03))
+      padding-box,
+    linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.9),
+        rgba(56, 189, 248, 0.9),
+        rgba(14, 165, 233, 0.72)
+      )
+      border-box;
   border: 1px solid transparent;
   box-shadow: 0 0 60px rgba(56, 189, 248, 0.12);
 }
@@ -581,7 +618,9 @@ main {
   background: rgba(255, 255, 255, 0.06);
   box-shadow: var(--shadow);
   appearance: none;
-  transition: transform 520ms cubic-bezier(0.2, 1, 0.2, 1), opacity 300ms ease;
+  transition:
+    transform 520ms cubic-bezier(0.2, 1, 0.2, 1),
+    opacity 300ms ease;
 }
 
 .carousel-card img {
@@ -687,7 +726,9 @@ main {
   letter-spacing: 0.02em;
   opacity: 0;
   transform: translateY(10px) scale(0.92);
-  transition: opacity 180ms ease, transform 180ms ease;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
 }
 
 .carousel-card.active .carousel-open-hint,
@@ -784,7 +825,10 @@ body.lightbox-open {
   color: var(--text);
   background: rgba(4, 10, 22, 0.78);
   backdrop-filter: blur(14px);
-  transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
 }
 
 .image-lightbox-close:hover {
@@ -862,11 +906,8 @@ body.lightbox-open {
   border-radius: 28px;
   background: rgba(255, 255, 255, 0.055);
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.22);
-  transform:
-    perspective(900px)
-    translateY(var(--card-lift, 0px))
-    rotateX(var(--tilt-x, 0deg))
-    rotateY(var(--tilt-y, 0deg));
+  transform: perspective(900px) translateY(var(--card-lift, 0px))
+    rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
   transform-style: preserve-3d;
   transition:
     transform 220ms cubic-bezier(0.2, 1, 0.2, 1),
@@ -881,7 +922,11 @@ body.lightbox-open {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: radial-gradient(circle 180px at var(--spot-x, 50%) var(--spot-y, 0%), rgba(56, 189, 248, 0.23), transparent 70%);
+  background: radial-gradient(
+    circle 180px at var(--spot-x, 50%) var(--spot-y, 0%),
+    rgba(56, 189, 248, 0.23),
+    transparent 70%
+  );
   opacity: 0;
   transition: opacity 180ms ease;
 }
@@ -973,7 +1018,11 @@ body.lightbox-open {
   min-height: 0;
   padding: clamp(24px, 3vw, 34px);
   background:
-    radial-gradient(circle at 78% 28%, rgba(56, 189, 248, 0.18), transparent 46%),
+    radial-gradient(
+      circle at 78% 28%,
+      rgba(56, 189, 248, 0.18),
+      transparent 46%
+    ),
     linear-gradient(145deg, rgba(7, 28, 54, 0.96), rgba(4, 16, 34, 0.98));
   border-color: rgba(56, 189, 248, 0.28);
 }
@@ -988,24 +1037,6 @@ body.lightbox-open {
   line-height: 1.02;
 }
 
-.bento-feature-logo-frame {
-  display: grid;
-  place-items: center;
-  justify-self: stretch;
-  align-self: stretch;
-  min-height: 210px;
-  border: 1px solid rgba(56, 189, 248, 0.5);
-  border-radius: 28px;
-  background:
-    radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.12), transparent 32%),
-    linear-gradient(145deg, rgba(7, 42, 80, 0.72), rgba(1, 12, 28, 0.62));
-  box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.045),
-    0 18px 54px rgba(0, 0, 0, 0.22),
-    0 0 34px rgba(56, 189, 248, 0.1);
-  overflow: hidden;
-}
-
 .bento-feature-logo-frame img {
   width: min(76%, 260px);
   height: min(76%, 260px);
@@ -1015,7 +1046,8 @@ body.lightbox-open {
 }
 
 @keyframes studioLogoFloat {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0) rotate(-7deg) scale(1);
   }
 
@@ -1140,7 +1172,9 @@ body.lightbox-open {
 .fade-content {
   opacity: 0;
   transform: translateY(22px);
-  transition: opacity 650ms ease, transform 650ms cubic-bezier(0.2, 1, 0.2, 1);
+  transition:
+    opacity 650ms ease,
+    transform 650ms cubic-bezier(0.2, 1, 0.2, 1);
 }
 
 .fade-content.is-visible {
@@ -1274,7 +1308,9 @@ body.lightbox-open {
   color: var(--text);
   background: rgba(0, 0, 0, 0.24);
   outline: none;
-  transition: border-color 160ms ease, box-shadow 160ms ease;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
 }
 
 .field textarea {
@@ -1315,7 +1351,6 @@ body.lightbox-open {
   object-fit: cover;
   border-radius: 18px;
 }
-
 
 .login-card {
   width: min(480px, 100%);
@@ -1538,7 +1573,6 @@ body.lightbox-open {
     width: 42px;
     height: 42px;
   }
-
 
   .admin-header,
   .editor-heading-row {
@@ -1871,8 +1905,16 @@ body.lightbox-open {
   border: 1px solid var(--admin-border);
   border-radius: 34px;
   background:
-    radial-gradient(circle at 12% 8%, rgba(56, 189, 248, 0.18), transparent 28rem),
-    radial-gradient(circle at 100% 0%, rgba(14, 165, 233, 0.14), transparent 24rem),
+    radial-gradient(
+      circle at 12% 8%,
+      rgba(56, 189, 248, 0.18),
+      transparent 28rem
+    ),
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(14, 165, 233, 0.14),
+      transparent 24rem
+    ),
     rgba(4, 10, 22, 0.72);
   box-shadow: 0 28px 90px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(22px);
@@ -1884,7 +1926,12 @@ body.lightbox-open {
   inset: 0;
   pointer-events: none;
   border-radius: inherit;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 38%, rgba(56, 189, 248, 0.08));
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.08),
+    transparent 38%,
+    rgba(56, 189, 248, 0.08)
+  );
 }
 
 .admin-header > * {
@@ -1987,7 +2034,11 @@ body.lightbox-open {
   border: 1px solid var(--admin-border);
   border-radius: 28px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.025)),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.025)
+    ),
     rgba(4, 10, 22, 0.76);
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
   backdrop-filter: blur(20px);
@@ -2057,7 +2108,11 @@ body.lightbox-open {
   border-radius: 32px;
   border-color: rgba(255, 255, 255, 0.1);
   background:
-    radial-gradient(circle at 100% 0%, rgba(56, 189, 248, 0.08), transparent 26rem),
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(56, 189, 248, 0.08),
+      transparent 26rem
+    ),
     rgba(4, 10, 22, 0.78);
 }
 
@@ -2140,7 +2195,11 @@ body.lightbox-open {
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.025)),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.045),
+      rgba(255, 255, 255, 0.025)
+    ),
     rgba(5, 14, 32, 0.58);
 }
 
@@ -2215,7 +2274,11 @@ body.lightbox-open {
   border: 1px dashed rgba(56, 189, 248, 0.42);
   border-radius: 22px;
   background:
-    radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.14), transparent 18rem),
+    radial-gradient(
+      circle at 0% 0%,
+      rgba(56, 189, 248, 0.14),
+      transparent 18rem
+    ),
     rgba(56, 189, 248, 0.055);
 }
 
@@ -2743,7 +2806,6 @@ body.lightbox-open {
   transform: translateY(-0.01em);
 }
 
-
 /* Work page lower projects cue: clean, non-overlay scroll hint */
 .work-more-cue {
   display: grid;
@@ -2793,8 +2855,6 @@ body.lightbox-open {
     margin-top: 6px;
   }
 }
-
-
 
 /* Mobile navigation + responsive polish */
 .mobile-menu-toggle,
@@ -2899,7 +2959,11 @@ body.lightbox-open {
     border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 24px;
     background:
-      radial-gradient(circle at top right, rgba(56, 189, 248, 0.14), transparent 18rem),
+      radial-gradient(
+        circle at top right,
+        rgba(56, 189, 248, 0.14),
+        transparent 18rem
+      ),
       rgba(4, 10, 22, 0.96);
     box-shadow: 0 26px 90px rgba(0, 0, 0, 0.52);
     backdrop-filter: blur(22px);
