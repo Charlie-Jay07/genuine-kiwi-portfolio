@@ -380,3 +380,10 @@ The component also includes a CSS fallback shape so the icon still appears if th
 
 - Normalised the homepage display name before rendering, so an accidental leading underscore from Supabase/localStorage will not show as a second underline.
 - Reworked the gradient text renderer so only real underscores in the cleaned name are rendered.
+
+## Latest update: mobile navigation and responsive layout
+
+- Added a hamburger menu for mobile screens.
+- Mobile menu closes when a link is clicked, when the backdrop is tapped, or when Escape is pressed.
+- Improved mobile scaling across Home, Work, Services, Pricing, Contact, carousel, cards, lightbox, and admin forms.
+- Desktop navbar behavior remains unchanged.
