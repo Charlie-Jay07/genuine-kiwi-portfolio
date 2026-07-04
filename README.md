@@ -374,3 +374,9 @@ The component also includes a CSS fallback shape so the icon still appears if th
 ## Latest visual adjustment
 
 - Replaced the heavy Work page scroll gradient with a softer top fade and a small pulsing blue cue so the lower cards are hinted without a harsh divider line.
+
+
+## Latest fix
+
+- Normalised the homepage display name before rendering, so an accidental leading underscore from Supabase/localStorage will not show as a second underline.
+- Reworked the gradient text renderer so only real underscores in the cleaned name are rendered.

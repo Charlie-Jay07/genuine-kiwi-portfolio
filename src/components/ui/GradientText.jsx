@@ -1,18 +1,25 @@
+import { cleanDisplayName } from "../../lib/format";
+
 export function GradientText({ children }) {
   if (typeof children !== "string") {
     return <span className="gradient-text">{children}</span>;
   }
 
-  const parts = children.split("_");
+  const safeText = cleanDisplayName(children);
 
   return (
-    <span className="gradient-text">
-      {parts.map((part, index) => (
-        <span key={`${part}-${index}`} className="gradient-text-part">
-          {part}
-          {index < parts.length - 1 ? <span className="gradient-underscore">_</span> : null}
-        </span>
-      ))}
+    <span className="gradient-text" aria-label={safeText}>
+      {Array.from(safeText).map((char, index) =>
+        char === "_" ? (
+          <span key={`underscore-${index}`} className="gradient-underscore">
+            _
+          </span>
+        ) : (
+          <span key={`${char}-${index}`} className="gradient-text-part">
+            {char}
+          </span>
+        ),
+      )}
     </span>
   );
 }

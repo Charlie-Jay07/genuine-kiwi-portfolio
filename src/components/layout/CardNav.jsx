@@ -1,4 +1,5 @@
 import { FaUserShield } from "react-icons/fa";
+import { cleanDisplayName } from "../../lib/format";
 
 const navItems = [
   { route: "home", label: "Home" },
@@ -9,6 +10,8 @@ const navItems = [
 ];
 
 export function CardNav({ data, route }) {
+  const brandName = cleanDisplayName(data.profile.brand);
+
   return (
     <header className="card-nav">
       <div className="brand-area">
@@ -16,7 +19,7 @@ export function CardNav({ data, route }) {
           <span className="brand-mark image-mark">
             {data.profile.logoImage ? <img src={data.profile.logoImage} alt="" /> : "GK"}
           </span>
-          <span>{data.profile.brand}</span>
+          <span>{brandName}</span>
         </a>
 
       </div>

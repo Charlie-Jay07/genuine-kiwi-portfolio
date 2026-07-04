@@ -3,8 +3,11 @@ import { BorderGlow } from "../components/ui/BorderGlow";
 import { FadeContent } from "../components/ui/FadeContent";
 import { GradientText } from "../components/ui/GradientText";
 import { TiltedCard } from "../components/ui/TiltedCard";
+import { cleanDisplayName } from "../lib/format";
 
 export function HomePage({ data }) {
+  const displayName = cleanDisplayName(data.profile.displayName);
+
   return (
     <main>
       <section className="hero section-pad page-section">
@@ -12,7 +15,7 @@ export function HomePage({ data }) {
           <FadeContent>
             <h1>
               <span className="hero-name-line">
-                <GradientText>{data.profile.displayName}</GradientText>
+                <GradientText>{displayName}</GradientText>
               </span>
               <span className="hero-role">{data.profile.role}</span>
             </h1>
@@ -28,10 +31,10 @@ export function HomePage({ data }) {
           <TiltedCard>
             <BorderGlow>
               <div className="hero-card profile-card">
-                <img src={data.profile.heroImage || data.profile.avatarImage} alt={`${data.profile.displayName} profile visual`} />
+                <img src={data.profile.heroImage || data.profile.avatarImage} alt={`${displayName} profile visual`} />
                 <div className="hero-card-footer">
                   <span>Builder profile</span>
-                  <strong>{data.profile.displayName}</strong>
+                  <strong>{displayName}</strong>
                 </div>
               </div>
             </BorderGlow>
