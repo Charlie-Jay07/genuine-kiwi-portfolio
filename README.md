@@ -337,3 +337,14 @@ The component also includes a CSS fallback shape so the icon still appears if th
 
 ## Recent changes
 - Contact page Discord and Roblox links now render without leading icons.
+## Latest UI fixes
+
+- Admin login card now starts near the top of the page instead of sitting low on the screen.
+- Work carousel chevrons are centred inside the carousel track.
+- Carousel autoplay pauses on hover and includes a manual Pause/Resume button.
+
+
+## Latest project notes
+
+- Work cards now tilt/move on hover, matching the animated card feel.
+- Services feature card now includes the Roblox Studio logo asset at `public/assets/brand/roblox-studio-logo.png`.

@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
-import { FaChevronLeft, FaChevronRight, FaImages, FaSearchPlus, FaTimes } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaImages, FaPause, FaPlay, FaSearchPlus, FaTimes } from "react-icons/fa";
 import { DEFAULT_DATA } from "../../data/defaultData";
 import { getProjectCover, getProjectImageCount, getProjectImages } from "../../lib/projectMedia";
 
@@ -11,6 +11,8 @@ export function Carousel({ items, autoplayDelay = 4000 }) {
   const [lightboxItem, setLightboxItem] = useState(null);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [isClosing, setIsClosing] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isHoverPaused, setIsHoverPaused] = useState(false);
   const safeItems = items.length ? items : DEFAULT_DATA.projects;
 
   const active = safeItems[index] || safeItems[0];
@@ -44,14 +46,14 @@ export function Carousel({ items, autoplayDelay = 4000 }) {
   }
 
   useEffect(() => {
-    if (lightboxItem || safeItems.length <= 1) return undefined;
+    if (lightboxItem || isPaused || isHoverPaused || safeItems.length <= 1) return undefined;
 
     const timer = window.setInterval(() => {
       setIndex((current) => (current + 1) % safeItems.length);
     }, autoplayDelay);
 
     return () => window.clearInterval(timer);
-  }, [safeItems.length, autoplayDelay, lightboxItem]);
+  }, [safeItems.length, autoplayDelay, lightboxItem, isPaused, isHoverPaused]);
 
   useEffect(() => {
     function onKeyDown(event) {
@@ -120,11 +122,16 @@ export function Carousel({ items, autoplayDelay = 4000 }) {
 
   return (
     <>
-      <div className="carousel-wrap" style={{ "--base-width": "330px" }}>
-        <button className="carousel-button left" type="button" onClick={() => goTo(index - 1)} aria-label="Previous project">
-          ‹
-        </button>
+      <div
+        className="carousel-wrap"
+        style={{ "--base-width": "330px" }}
+        onMouseEnter={() => setIsHoverPaused(true)}
+        onMouseLeave={() => setIsHoverPaused(false)}
+      >
         <div className="carousel-track" aria-live="polite">
+          <button className="carousel-button left" type="button" onClick={() => goTo(index - 1)} aria-label="Previous project">
+            <FaChevronLeft aria-hidden="true" />
+          </button>
           {safeItems.map((item, itemIndex) => {
             const offset = itemIndex - index;
             const normalizedOffset = offset > safeItems.length / 2 ? offset - safeItems.length : offset;
@@ -152,10 +159,10 @@ export function Carousel({ items, autoplayDelay = 4000 }) {
               </button>
             );
           })}
+          <button className="carousel-button right" type="button" onClick={() => goTo(index + 1)} aria-label="Next project">
+            <FaChevronRight aria-hidden="true" />
+          </button>
         </div>
-        <button className="carousel-button right" type="button" onClick={() => goTo(index + 1)} aria-label="Next project">
-          ›
-        </button>
         {active && (
           <div className="carousel-info">
             <span>{active.category}</span>
@@ -163,16 +170,30 @@ export function Carousel({ items, autoplayDelay = 4000 }) {
             <p>{active.description}</p>
           </div>
         )}
-        <div className="carousel-dots" role="tablist" aria-label="Project slides">
-          {safeItems.map((item, itemIndex) => (
+        <div className="carousel-footer-controls">
+          {safeItems.length > 1 && (
             <button
-              key={item.id}
+              className="carousel-pause-toggle"
               type="button"
-              className={itemIndex === index ? "active" : ""}
-              onClick={() => goTo(itemIndex)}
-              aria-label={`Go to ${item.title}`}
-            />
-          ))}
+              onClick={() => setIsPaused((current) => !current)}
+              aria-pressed={isPaused}
+              aria-label={isPaused ? "Resume carousel autoplay" : "Pause carousel autoplay"}
+            >
+              {isPaused ? <FaPlay aria-hidden="true" /> : <FaPause aria-hidden="true" />}
+              {isPaused ? "Resume" : isHoverPaused ? "Paused on hover" : "Pause"}
+            </button>
+          )}
+          <div className="carousel-dots" role="tablist" aria-label="Project slides">
+            {safeItems.map((item, itemIndex) => (
+              <button
+                key={item.id}
+                type="button"
+                className={itemIndex === index ? "active" : ""}
+                onClick={() => goTo(itemIndex)}
+                aria-label={`Go to ${item.title}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
 

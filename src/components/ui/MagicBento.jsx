@@ -9,8 +9,13 @@ export function MagicBento({ services }) {
     <div className="magic-bento">
       <BorderGlow className="bento-feature-wrap">
         <div className="bento-card large">
-          <p className="eyebrow">Speciality</p>
-          <h3>Stylized builds for Roblox experiences.</h3>
+          <div className="bento-feature-copy">
+            <p className="eyebrow">Speciality</p>
+            <h3>Stylized builds for Roblox experiences.</h3>
+          </div>
+          <div className="bento-feature-logo-frame" aria-hidden="true">
+            <img src="/assets/brand/roblox-studio-logo.png" alt="" />
+          </div>
         </div>
       </BorderGlow>
 
