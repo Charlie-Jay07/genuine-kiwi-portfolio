@@ -954,7 +954,7 @@ body.lightbox-open {
   transform: scale(1.035);
 }
 
-.spotlight-card div {
+.spotlight-card .project-card-copy {
   padding: 18px;
 }
 
@@ -3140,7 +3140,7 @@ body.lightbox-open {
     height: clamp(180px, 54vw, 240px);
   }
 
-  .spotlight-card div {
+  .spotlight-card .project-card-copy {
     padding: 16px;
   }
 
@@ -3321,5 +3321,436 @@ body.lightbox-open {
 
   .image-lightbox-nav.right {
     right: 8px;
+  }
+}
+
+/* Portfolio project gallery + card button fixes */
+.project-thumb-button {
+  appearance: none;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: zoom-in;
+}
+
+.project-thumb-button:focus,
+.project-thumb-button:active {
+  outline: none;
+  background: transparent;
+}
+
+.project-thumb-button:focus-visible {
+  outline: 3px solid rgba(56, 189, 248, 0.72);
+  outline-offset: -3px;
+}
+
+.project-thumb-wrap {
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+}
+
+.spotlight-card .project-thumb-wrap {
+  padding: 0;
+}
+
+.project-thumb-empty {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 170px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.045);
+  font-weight: 900;
+}
+
+.project-thumb-button img,
+.spotlight-card .project-thumb-button img {
+  display: block;
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+}
+
+.spotlight-card .project-thumb-button:hover img {
+  transform: scale(1.035);
+}
+
+.spotlight-card .project-image-count {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+}
+
+.project-gallery-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(14px);
+}
+
+.project-gallery-modal {
+  position: relative;
+  width: min(1100px, 100%);
+  max-height: 92vh;
+  overflow: auto;
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  border-radius: 28px;
+  background: #07111f;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.55);
+  padding: 1.4rem;
+}
+
+.project-gallery-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(0, 0, 0, 0.45);
+  color: white;
+  cursor: pointer;
+}
+
+.project-gallery-header {
+  padding: 0.5rem 3.5rem 1.2rem 0.2rem;
+}
+
+.project-gallery-header span {
+  display: inline-block;
+  margin-bottom: 0.35rem;
+  color: #38bdf8;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.project-gallery-header h2 {
+  margin: 0;
+  color: white;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+}
+
+.project-gallery-header p {
+  margin: 0.6rem 0 0;
+  color: #b6c4d6;
+}
+
+.project-gallery-stage {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.project-gallery-stage img {
+  display: block;
+  width: 100%;
+  max-height: 62vh;
+  object-fit: contain;
+}
+
+.project-gallery-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(0, 0, 0, 0.55);
+  color: white;
+  cursor: pointer;
+}
+
+.project-gallery-arrow-left {
+  left: 1rem;
+}
+
+.project-gallery-arrow-right {
+  right: 1rem;
+}
+
+.project-gallery-caption {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1rem 0.2rem;
+}
+
+.project-gallery-caption h3 {
+  margin: 0;
+  color: white;
+}
+
+.project-gallery-caption p {
+  margin: 0;
+  color: #b6c4d6;
+}
+
+.project-gallery-caption span {
+  color: #38bdf8;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.project-gallery-thumbs {
+  display: flex;
+  gap: 0.8rem;
+  overflow-x: auto;
+  padding-bottom: 0.3rem;
+}
+
+.project-gallery-thumb {
+  flex: 0 0 120px;
+  height: 78px;
+  overflow: hidden;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  opacity: 0.62;
+}
+
+.project-gallery-thumb.active {
+  border-color: #38bdf8;
+  opacity: 1;
+}
+
+.project-gallery-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.project-toolbar-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.project-feature-toggle.active {
+  border-color: rgba(56, 189, 248, 0.75);
+  color: #38bdf8;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+@media (max-width: 720px) {
+  .project-gallery-overlay {
+    padding: 0.8rem;
+  }
+
+  .project-gallery-modal {
+    border-radius: 20px;
+    padding: 1rem;
+  }
+
+  .project-gallery-arrow {
+    width: 40px;
+    height: 40px;
+  }
+
+  .project-toolbar-actions {
+    justify-content: flex-start;
+  }
+}
+
+/* Theme scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(56, 189, 248, 0.75) rgba(4, 10, 22, 0.72);
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(4, 10, 22, 0.72);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb {
+  border: 2px solid rgba(4, 10, 22, 0.92);
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    rgba(125, 211, 252, 0.95),
+    rgba(56, 189, 248, 0.82),
+    rgba(14, 165, 233, 0.78)
+  );
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    #ffffff,
+    rgba(56, 189, 248, 0.95),
+    rgba(14, 165, 233, 0.9)
+  );
+}
+
+*::-webkit-scrollbar-corner {
+  background: rgba(4, 10, 22, 0.72);
+}
+
+/* Make project/image popup sit above navbar */
+.project-gallery-overlay,
+.image-lightbox {
+  z-index: 20000;
+}
+
+/* Keep navbar below popups */
+.card-nav {
+  z-index: 9999;
+}
+
+/* Style the gallery modal scrollbar specifically */
+.project-gallery-modal,
+.image-lightbox-panel {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(56, 189, 248, 0.8) rgba(255, 255, 255, 0.06);
+}
+
+.project-gallery-modal::-webkit-scrollbar,
+.image-lightbox-panel::-webkit-scrollbar {
+  width: 9px;
+}
+
+.project-gallery-modal::-webkit-scrollbar-track,
+.image-lightbox-panel::-webkit-scrollbar-track {
+  margin: 20px 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.project-gallery-modal::-webkit-scrollbar-thumb,
+.image-lightbox-panel::-webkit-scrollbar-thumb {
+  border: 2px solid rgba(5, 14, 32, 0.96);
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    rgba(125, 211, 252, 0.95),
+    rgba(56, 189, 248, 0.82),
+    rgba(14, 165, 233, 0.78)
+  );
+}
+
+.project-gallery-modal::-webkit-scrollbar-thumb:hover,
+.image-lightbox-panel::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    #ffffff,
+    rgba(56, 189, 248, 0.95),
+    rgba(14, 165, 233, 0.92)
+  );
+}
+
+/* Final popup/nav stacking override */
+.card-nav {
+  z-index: 9000;
+}
+
+.mobile-menu-backdrop,
+.site-nav,
+.mobile-menu-toggle {
+  z-index: 9001;
+}
+
+.project-gallery-overlay,
+.image-lightbox {
+  z-index: 30000;
+}
+
+/*
+  Keep the lightbox overlay covering the navbar area.
+  Padding keeps the image panel visually below the nav height while the nav itself sits underneath the overlay.
+*/
+.image-lightbox {
+  inset: 0;
+  padding: 92px 24px 24px;
+}
+
+@media (max-width: 720px) {
+  .image-lightbox {
+    inset: 0;
+    padding: 86px 14px 14px;
+  }
+}
+
+/* Final hard fix: let fixed popups escape above the nav */
+main {
+  z-index: auto;
+}
+
+/* Keep the fixed navbar below modals/lightboxes */
+.card-nav {
+  z-index: 9000;
+}
+
+/* Keep mobile nav parts together, but still below popups */
+.mobile-menu-toggle,
+.mobile-menu-backdrop,
+.site-nav {
+  z-index: 9001;
+}
+
+/* Force all project popups/lightboxes above the navbar */
+.project-gallery-overlay,
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 30000;
+}
+
+/* Keep the modal content visually clear of the top area */
+.image-lightbox {
+  padding: 92px 24px 24px;
+}
+
+.project-gallery-overlay {
+  padding: 92px 24px 24px;
+}
+
+/* Make sure the actual popup panel is above its overlay background */
+.project-gallery-modal,
+.image-lightbox-panel {
+  position: relative;
+  z-index: 30001;
+}
+
+/* Mobile spacing */
+@media (max-width: 720px) {
+  .image-lightbox,
+  .project-gallery-overlay {
+    padding: 86px 14px 14px;
   }
 }
