@@ -1,12 +1,22 @@
 const SESSION_KEY = "genuineKiwiPortfolio:discordAdminSession:v1";
 const STATE_KEY = "genuineKiwiPortfolio:discordOAuthState:v1";
 
-export const DISCORD_CLIENT_ID = import.meta.env.VITE_DISCORD_CLIENT_ID || "1522861548023058643";
-export const DISCORD_AUTH_SCOPES = import.meta.env.VITE_DISCORD_AUTH_SCOPES || "identify";
-export const DISCORD_RESPONSE_TYPE = import.meta.env.VITE_DISCORD_RESPONSE_TYPE || "token";
-export const DISCORD_API_BASE = import.meta.env.VITE_DISCORD_API_BASE || "https://discord.com/api";
+export const DISCORD_CLIENT_ID =
+  import.meta.env.VITE_DISCORD_CLIENT_ID || "1522861548023058643";
 
-export const ALLOWED_DISCORD_ADMIN_IDS = (import.meta.env.VITE_DISCORD_ADMIN_IDS || "816509777911742486,972599697229365278")
+export const DISCORD_AUTH_SCOPES =
+  import.meta.env.VITE_DISCORD_AUTH_SCOPES || "identify";
+
+export const DISCORD_RESPONSE_TYPE =
+  import.meta.env.VITE_DISCORD_RESPONSE_TYPE || "token";
+
+export const DISCORD_API_BASE =
+  import.meta.env.VITE_DISCORD_API_BASE || "https://discord.com/api";
+
+export const ALLOWED_DISCORD_ADMIN_IDS = (
+  import.meta.env.VITE_DISCORD_ADMIN_IDS ||
+  "816509777911742486,972599697229365278"
+)
   .split(",")
   .map((id) => id.trim())
   .filter(Boolean);
@@ -16,21 +26,52 @@ function getBrowserOrigin() {
   return window.location.origin;
 }
 
-function getBrowserPathname() {
-  if (typeof window === "undefined") return "/";
-  return window.location.pathname || "/";
-}
-
 export function getDiscordRedirectUri() {
-  if (import.meta.env.VITE_DISCORD_REDIRECT_URI) return import.meta.env.VITE_DISCORD_REDIRECT_URI;
-  return `${getBrowserOrigin()}${getBrowserPathname()}`;
+  /*
+    Use the current origin instead of a hardcoded env redirect.
+    This lets Discord login work on:
+    - https://genuine-kiwi.vercel.app
+    - https://genuinekiwi.website
+    - https://www.genuinekiwi.website
+
+    Make sure each origin is listed in Discord Developer Portal → OAuth2 → Redirects.
+  */
+  return getBrowserOrigin();
 }
 
 function createState() {
-  const randomPart = globalThis.crypto?.randomUUID?.() || Math.random().toString(36).slice(2);
+  const randomPart =
+    globalThis.crypto?.randomUUID?.() || Math.random().toString(36).slice(2);
+
   const state = `admin-${Date.now()}-${randomPart}`;
-  localStorage.setItem(STATE_KEY, state);
+
+  try {
+    sessionStorage.setItem(STATE_KEY, state);
+    localStorage.setItem(STATE_KEY, state);
+  } catch {
+    localStorage.setItem(STATE_KEY, state);
+  }
+
   return state;
+}
+
+function getStoredState() {
+  try {
+    return (
+      sessionStorage.getItem(STATE_KEY) || localStorage.getItem(STATE_KEY) || ""
+    );
+  } catch {
+    return localStorage.getItem(STATE_KEY) || "";
+  }
+}
+
+function clearStoredState() {
+  try {
+    sessionStorage.removeItem(STATE_KEY);
+    localStorage.removeItem(STATE_KEY);
+  } catch {
+    localStorage.removeItem(STATE_KEY);
+  }
 }
 
 export function getDiscordAuthorizeUrl(state = "") {
@@ -42,6 +83,7 @@ export function getDiscordAuthorizeUrl(state = "") {
   });
 
   if (state) params.set("state", state);
+
   return `https://discord.com/oauth2/authorize?${params.toString()}`;
 }
 
@@ -56,11 +98,17 @@ function parseOAuthFragment() {
   const rawHash = window.location.hash.replace(/^#/, "");
   if (!rawHash) return null;
 
-  // Normal Discord implicit redirect: #access_token=...&token_type=Bearer...
-  // Also tolerate hash-route variants such as #admin&access_token=... or #admin?access_token=...
-  const cleaned = rawHash
-    .replace(/^admin[?&]/, "")
-    .replace(/^\/admin[?&]/, "");
+  /*
+    Normal Discord implicit redirect:
+    #access_token=...&token_type=Bearer...
+
+    Also tolerate hash-route variants:
+    #admin&access_token=...
+    #admin?access_token=...
+    #/admin&access_token=...
+    #/admin?access_token=...
+  */
+  const cleaned = rawHash.replace(/^admin[?&]/, "").replace(/^\/admin[?&]/, "");
 
   if (!cleaned.includes("access_token=")) return null;
 
@@ -72,13 +120,16 @@ function parseOAuthError() {
 
   const rawHash = window.location.hash.replace(/^#/, "");
   const rawSearch = window.location.search.replace(/^\?/, "");
+
   const possible = [rawHash, rawSearch]
     .map((value) => value.replace(/^admin[?&]/, "").replace(/^\/admin[?&]/, ""))
     .filter(Boolean);
 
   for (const item of possible) {
     const params = new URLSearchParams(item);
-    if (params.get("error")) return params.get("error_description") || params.get("error");
+    if (params.get("error")) {
+      return params.get("error_description") || params.get("error");
+    }
   }
 
   return "";
@@ -90,7 +141,9 @@ export function hasDiscordOAuthRedirect() {
 
 function cleanAdminUrl() {
   if (typeof window === "undefined") return;
+
   window.history.replaceState(null, "", `${window.location.pathname}#admin`);
+
   try {
     window.dispatchEvent(new HashChangeEvent("hashchange"));
   } catch {
@@ -105,15 +158,21 @@ export function clearDiscordAdminSession() {
 export function getStoredDiscordAdminSession() {
   try {
     const stored = JSON.parse(localStorage.getItem(SESSION_KEY) || "null");
-    if (!stored?.accessToken || !stored?.user?.id || !stored?.expiresAt) return null;
+
+    if (!stored?.accessToken || !stored?.user?.id || !stored?.expiresAt) {
+      return null;
+    }
+
     if (Date.now() >= stored.expiresAt) {
       clearDiscordAdminSession();
       return null;
     }
+
     if (!ALLOWED_DISCORD_ADMIN_IDS.includes(String(stored.user.id))) {
       clearDiscordAdminSession();
       return null;
     }
+
     return stored;
   } catch {
     clearDiscordAdminSession();
@@ -126,7 +185,10 @@ export function getDiscordDisplayName(user) {
   return user.global_name || user.username || "Discord admin";
 }
 
-export async function fetchDiscordCurrentUser(accessToken, tokenType = "Bearer") {
+export async function fetchDiscordCurrentUser(
+  accessToken,
+  tokenType = "Bearer",
+) {
   const response = await fetch(`${DISCORD_API_BASE}/users/@me`, {
     headers: {
       Authorization: `${tokenType} ${accessToken}`,
@@ -142,28 +204,44 @@ export async function fetchDiscordCurrentUser(accessToken, tokenType = "Bearer")
 
 export async function completeDiscordLoginFromRedirect() {
   const oauthError = parseOAuthError();
+
   if (oauthError) {
     cleanAdminUrl();
     throw new Error(oauthError);
   }
 
   const params = parseOAuthFragment();
-  if (!params) return getStoredDiscordAdminSession();
+
+  if (!params) {
+    return getStoredDiscordAdminSession();
+  }
 
   const accessToken = params.get("access_token");
   const tokenType = params.get("token_type") || "Bearer";
   const expiresIn = Number(params.get("expires_in") || "604800");
   const returnedState = params.get("state") || "";
-  const expectedState = localStorage.getItem(STATE_KEY) || "";
+  const expectedState = getStoredState();
 
-  localStorage.removeItem(STATE_KEY);
+  clearStoredState();
 
   if (!accessToken) {
     cleanAdminUrl();
     throw new Error("Discord did not return an access token.");
   }
 
-  if (expectedState && expectedState !== returnedState) {
+  if (!returnedState) {
+    cleanAdminUrl();
+    throw new Error("Discord did not return a login state. Try again.");
+  }
+
+  if (!expectedState) {
+    cleanAdminUrl();
+    throw new Error(
+      "Discord login state was missing in this browser. Try again from the same tab.",
+    );
+  }
+
+  if (expectedState !== returnedState) {
     cleanAdminUrl();
     throw new Error("Discord login state did not match. Try again.");
   }
@@ -174,7 +252,9 @@ export async function completeDiscordLoginFromRedirect() {
   if (!ALLOWED_DISCORD_ADMIN_IDS.includes(discordId)) {
     cleanAdminUrl();
     clearDiscordAdminSession();
-    throw new Error(`Discord account ${discordId || "unknown"} is not allowed to use this admin area.`);
+    throw new Error(
+      `Discord account ${discordId || "unknown"} is not allowed to use this admin area.`,
+    );
   }
 
   const session = {
@@ -190,6 +270,8 @@ export async function completeDiscordLoginFromRedirect() {
   };
 
   localStorage.setItem(SESSION_KEY, JSON.stringify(session));
+
   cleanAdminUrl();
+
   return session;
 }
