@@ -39,9 +39,18 @@ export function CardNav({ data, route }) {
   return (
     <header className={`card-nav ${menuOpen ? "menu-open" : ""}`}>
       <div className="brand-area">
-        <a className="brand" href="#home" aria-label="Go to home" onClick={closeMenu}>
+        <a
+          className="brand"
+          href="#home"
+          aria-label="Go to home"
+          onClick={closeMenu}
+        >
           <span className="brand-mark image-mark">
-            {data.profile.logoImage ? <img src={data.profile.logoImage} alt="" /> : "GK"}
+            {data.profile.logoImage ? (
+              <img src={data.profile.logoImage} alt="" />
+            ) : (
+              "GK"
+            )}
           </span>
           <span>{brandName}</span>
         </a>
@@ -55,7 +64,11 @@ export function CardNav({ data, route }) {
         aria-expanded={menuOpen}
         onClick={() => setMenuOpen((current) => !current)}
       >
-        {menuOpen ? <FaTimes aria-hidden="true" /> : <FaBars aria-hidden="true" />}
+        {menuOpen ? (
+          <FaTimes aria-hidden="true" />
+        ) : (
+          <FaBars aria-hidden="true" />
+        )}
       </button>
 
       <button
@@ -66,16 +79,21 @@ export function CardNav({ data, route }) {
         onClick={closeMenu}
       />
 
-      <nav id="site-navigation" className={`site-nav ${menuOpen ? "is-open" : ""}`} aria-label="Main navigation">
+      <nav
+        id="site-navigation"
+        className={`site-nav ${menuOpen ? "is-open" : ""}`}
+        aria-label="Main navigation"
+      >
         {navItems.map((item) => (
-          <a key={item.route} className={route === item.route ? "active" : ""} href={`#${item.route}`} onClick={closeMenu}>
+          <a
+            key={item.route}
+            className={route === item.route ? "active" : ""}
+            href={`#${item.route}`}
+            onClick={closeMenu}
+          >
             {item.label}
           </a>
         ))}
-        <a href="#admin" className={`admin-link ${route === "admin" ? "active" : ""}`} onClick={closeMenu}>
-          <FaUserShield aria-hidden="true" />
-          Admin
-        </a>
       </nav>
     </header>
   );
